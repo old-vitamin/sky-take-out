@@ -9,6 +9,46 @@
         values (#{name}, #{username}, #{password}, #{phone}, #{sex}, #{idNumber}, #{createTime}, #{updateTime},
                 #{createUser}, #{updateUser})
     </insert>
+    <!--    起用or禁用用户状态-->
+    <update id="update">
+        update employee
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="idNumber != null">
+                idNumber = #{idNumber},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime},
+            </if>
+            <if test="createUser != null">
+                createUser = #{createUser},
+            </if>
+            <if test="updateUser != null">
+                updateUser = #{updateUser},
+            </if>
+            <if test="status != null">
+                status = #{status}
+            </if>
+        </set>
+        where id= #{id}
+    </update>
     <!--    分页查询-->
     <select id="pageQuery" resultType="com.sky.entity.Employee">
         select id,
@@ -31,8 +71,6 @@
         </where>
         order by update_time desc
     </select>
-
-
 
 
 </mapper>
