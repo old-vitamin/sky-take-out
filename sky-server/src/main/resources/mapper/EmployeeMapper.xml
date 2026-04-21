@@ -10,6 +10,7 @@
                 #{createUser}, #{updateUser})
     </insert>
     <!--    起用or禁用用户状态-->
+    <!--    更新用户-->
     <update id="update">
         update employee
         <set>
@@ -29,19 +30,19 @@
                 sex = #{sex},
             </if>
             <if test="idNumber != null">
-                idNumber = #{idNumber},
+                id_number = #{idNumber},
             </if>
             <if test="createTime != null">
-                createTime = #{createTime},
+                create_time = #{createTime},
             </if>
             <if test="updateTime != null">
-                updateTime = #{updateTime},
+                update_time = #{updateTime},
             </if>
             <if test="createUser != null">
-                createUser = #{createUser},
+                create_user = #{createUser},
             </if>
             <if test="updateUser != null">
-                updateUser = #{updateUser},
+                update_user = #{updateUser},
             </if>
             <if test="status != null">
                 status = #{status}
@@ -70,6 +71,23 @@
             </if>
         </where>
         order by update_time desc
+    </select>
+    <!--    查询回显,根据员工id查询员工信息-->
+    <select id="getById" resultType="com.sky.entity.Employee">
+        select id,
+               name,
+               username,
+               password,
+               phone,
+               sex,
+               id_number,
+               status,
+               create_time,
+               update_time,
+               create_user,
+               update_user
+        from employee
+        where id = #{id}
     </select>
 
 

@@ -1,5 +1,6 @@
 package com.sky.service.impl;
 
+import com.github.pagehelper.Constant;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
@@ -121,6 +122,35 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .status(status)
                 .id(id)
                 .build();
+        employeeMapper.update(employee);
+    }
+
+    /**
+     * 查询回显,根据员工id查询员工信息
+     * @param id
+     * @return
+     */
+    @Override
+    public Employee getById(Long id) {
+        Employee employee = employeeMapper.getById(id);
+        employee.setPassword("******");
+        return employee;
+    }
+
+    /**
+     * 根据回显结果修改更新员工信息
+     * @param employeeDTO
+     */
+    @Override
+    public void update(EmployeeDTO employeeDTO) {
+        // 将dto转化为实体类
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO, employee);
+        // 对employee的更新日期和更新操作员工记录
+        employee.setUpdateTime(LocalDateTime.now());
+        // 获取当前的操作员id
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        // 调用mapper
         employeeMapper.update(employee);
     }
 
